@@ -1,0 +1,27 @@
+
+<h2>Carrito de compras  <img src="../../../../assets/shopping-cart.svg" class="cart-image" alt="..." /></h2>
+<hr>
+<div class="row">
+  <div class="col-8">
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let product of products">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"> {{ product.name }} </h5>
+      <small>3 days ago</small>
+      <button class="btn btn-danger">X</button>
+    </div>
+    <p class="mb-1">{{  product.description }} </p>
+    <small>And some small print.</small>
+    
+  </a>
+</div>
+</div>
+<div class="col-4">
+  <div class="border p-4">
+    <h4>Total Compra : $23.00.00</h4>
+    <div class="d-grid">
+      <button class="btn btn-outline-success w-80">Ir a pagar</button>
+    </div>
+  </div>
+</div>
+</div>
