@@ -44,17 +44,14 @@
         </div>
       </div>
       <div class="col-12">
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button type="submit" class="btn btn-primary">Comprar</button>
       </div>
     </form>
 
   </div>
   <div class="col-4">
     <div class="border p-4">
-      <h4>Total Compra : $23.00.00</h4>
-      <div class="d-grid">
-        <button class="btn btn-outline-success w-80">Ir a pagar</button>
-      </div>
+      <h4>Total Compra : {{ totalValue | currency  }} </h4>
     </div>
   </div>
 </div>

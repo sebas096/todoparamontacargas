@@ -5,12 +5,16 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { LayoutComponent } from './layout/layout.component';
 import { UsersComponent } from './users/users.component';
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [LayoutComponent, UsersComponent, ProductsAdminComponent],
+  declarations: [LayoutComponent, UsersComponent, ProductsAdminComponent, UsersComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
+
   ]
 })
 export class AdminModule { }

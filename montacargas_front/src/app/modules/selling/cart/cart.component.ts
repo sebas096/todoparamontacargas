@@ -7,17 +7,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  products:any;
+  products: any[];
+  totalValue: number;
   constructor() { }
 
   ngOnInit() {
-
-    this.products = [ { name:"Llanta de montacarga", price:"2312312", description:"Este es un repuesto de montacarga", brand:"CAT"},
-    { name:"Motor", price:"2312312", description:"Este es un repuesto de montacarga", brand:"CAT"},
-    { name:"Montacarga 3", price:"2312312", description:"Este es un repuesto de montacarga", brand:"CAT"},
-    { name:"Montacarga 4", price:"2312312", description:"Este es un repuesto de montacarga", brand:"CAT"},
-    { name:"Montacarga 5", price:"2312312", description:"Este es un repuesto de montacarga", brand:"CAT"},
-    { name:"prueba", price:"2312312", description:"Este es un repuesto de montacarga", brand:"CAT"}]
+    const cartList = sessionStorage.getItem("cart");
+    this.products =   !!cartList ? JSON.parse(cartList) : [] ;
+    this.calcTotalValue();
   }
 
+  removeFromCart(productToRemove) {
+    const cartList = sessionStorage.getItem("cart");
+    const previusProducts: any[] =   !!cartList ? JSON.parse(cartList) : [] ;
+    this.products = previusProducts.filter( (product)  => {
+          return productToRemove.id != product.id;
+    });
+    sessionStorage.setItem("cart",JSON.stringify(this.products));
+    this.calcTotalValue();
+  } 
+
+  calcTotalValue(){
+
+    this.totalValue =  this.products.reduce((previus,next) => parseInt(previus) + parseInt(next.price), 0 )
+    console.log(this.totalValue);
+    
+  }
 }

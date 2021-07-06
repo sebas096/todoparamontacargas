@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { User } from 'app/shared/models/user.model';
-import { UserService } from 'app/core/services/user.service';
-import { Rol } from 'app/shared/models/rol.model';
-import { RolService } from 'app/core/services/rol.service';
-import { BuildingService } from 'app/core/services/building.service';
-import { Building } from 'app/shared/models/building.model';
-import { Response } from 'app/shared/models/response.model';
+import { User } from 'src/app/shared/models/user.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { Rol } from 'src/app/shared/models/rol.model';
+import { RolService } from 'src/app/core/services/rol.service';
+import { BuildingService } from 'src/app/core/services/building.service';
+import { Building } from 'src/app/shared/models/building.model';
+import { Response } from 'src/app/shared/models/response.model';
 import { interval as observableInterval } from "rxjs";
 import { takeWhile, scan, tap } from "rxjs/operators";
-import { LoadingService } from 'app/core/services/loading.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
 
 @Component({
   selector: 'app-users',
