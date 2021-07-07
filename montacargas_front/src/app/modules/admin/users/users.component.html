@@ -1,183 +1,161 @@
-<div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="header">
-                      <h4 class="title">Crear usuarios</h4>
-                  </div>
-                  <div class="content">
-                      <form [formGroup]="userForm">
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label for="exampleInputEmail1">Correo</label>
-                                      <input formControlName="email" type="email" class="form-control"
-                                          placeholder="Email">
-                                  </div>
-                                  <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                                      class="alert alert-danger">
-                                      <div *ngIf="email.errors.required">
-                                          El correo es requerido
-                                      </div>
-                                      <div *ngIf="email.errors.email">
-                                          Debes de ingresar un email valido
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label>Nombre</label>
-                                      <input formControlName="name" type="text" class="form-control"
-                                          placeholder="Nombre" value="Mike">
-                                  </div>
-                                  <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                                      class="alert alert-danger">
-                                      <div *ngIf="name.errors.required">
-                                          El nombre es requerido
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
+<div class="container">
+    <div class="rowb g-3">
+        <div class="col-md-12">
+            <div class="header">
+                <h4 class="title">Crear usuarios</h4>
+            </div>
+            <div class="content">
+                <form [formGroup]="userForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="user_email" class="form-label">Correo</label>
+                            <input type="email" [ngClass]="{ 
+                                        'form-control' : true,
+                                        'is-invalid' :  email.invalid && (email.dirty || email.touched),
+                                        'is-valid' :  email.valid }" formControlName="email" id="user_email"
+                                aria-describedby="user_email_validation" placeholder="Email" required>
 
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label>Apellido</label>
-                                      <input formControlName="lastName" type="text" class="form-control"
-                                          placeholder="Apellido" value="Andrew">
-                                  </div>
-                                  <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
-                                      class="alert alert-danger">
-                                      <div *ngIf="lastName.errors.required">
-                                          El apellido es requerido
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-3">
-                                  <div class="form-group">
-                                      <label>Rol</label>
-                                      <select formControlName="idRol" class="form-control">
-                                          <option value="" selected disabled hidden>Seleccione un rol</option>
-                                          <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.name }} </option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="col-md-3">
-                                  <div class="form-group">
-                                      <div class="checkbox">
-                                          <input formControlName="active" id="userActive" type="checkbox">
-                                          <label for="userActive">Activo</label>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="card">
-                                      <div class="header">
-                                          <div class="form-group">
-                                              <h4 class="title">Obras</h4>
-                                              <label>Nombre obra</label>
-                                              <input name="filter" type="text" class="form-control" (keyup)="filterBuilding($event)"
-                                                  placeholder="Search">
-                                          </div>
-                                      </div>
-                                      <div class="content building-full-width">
-                                          <div class="table-responsive">
-                                              <table class="table">
-                                                  <tbody>
-                                                      <tr *ngFor="let building of buildings">
-                                                          <td width="5%;"> 
-                                                              <div class="checkbox">
-                                                                  <input [value]="building.id"
-                                                                      (change)="onChangeBuildingCheck(building)"
-                                                                      id="{{building.id}}" type="checkbox">
-                                                                      <label for="{{ building.id }}"></label>
-                                                              </div>
-                                                          </td>
-                                                          <td>
-                                                              {{ building.name }}
-                                                          </td>
-                                                      </tr>
-                                                  </tbody>
-                                              </table>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <button type="submit" (click)="cancel()" class="btn btn-secondary btn-fill pull-right">
-                              Cancelar</button>
-                          <button style="margin-right: 10px;" type="submit" (click)="saveUser()"
-                              class="btn btn-info btn-fill pull-right">Guardar</button>
-                          <div class="clearfix"></div>
-                      </form>
-                  </div>
-              </div>
-              <div class="card">
-                  <div class="header">
-                      <div class="form-group">
-                          <h4 class="title">Usuarios</h4>
-                          <label>Correo</label>
-                          <input name="userFilter" type="text" class="form-control" (keyup)="filterUser($event)"
-                              placeholder="Search">
-                      </div>
-                      
-                  </div>
-                  <div class="content">
-                      <div class="table-responsive">
-                          <table class="table">
-                              <thead>
-                                  <th>Nombre</th>
-                                  <th>Apellido</th>
-                                  <th>Email</th>
-                                  <th>Activo</th>
-                                  <th>Verificado</th>
-                                  <th>Fecha de actualización</th>
-                                  <th>Fecha de creación</th>
-                              </thead>
-                              <tbody>
-                                  <tr *ngFor="let user of users">
-                                      <td>{{ user.user.name }} </td>
-                                      <td>{{ user.user.lastName }}</td>
-                                      <td>{{ user.user.email }}</td>
-                                      <td>
-                                          <div class="checkbox">
-                                              <input *ngIf="user.user.active == 1" disabled id="{{user.user.id}}"
-                                                  type="checkbox" checked>
-                                              <input *ngIf="user.user.active == 0" disabled id="{{user.user.id}}"
-                                                  type="checkbox">
-                                              <label for="{{user.id}}">
-                                              </label>
-                                          </div>
-                                      </td>
-                                      <td>
-                                          <div class="checkbox">
-                                              <input *ngIf="user.user.verified == 1" disabled id="{{user.user.id}}"
-                                                  type="checkbox" checked>
-                                              <input *ngIf="user.user.verified == 0" disabled id="{{user.user.id}}"
-                                                  type="checkbox">
-                                              <label for="{{user.id}}">
-                                              </label>
-                                          </div>
-                                      </td>
-                                      <td>{{ user.user.updateAt }}</td>
-                                      <td>{{ user.user.createdAt }}</td>
-                                      <td class="td-actions text-right">
-                                          <button (click)="edit(user)" type="button" rel="tooltip"
-                                              title="Editar usuario" class="btn btn-info btn-simple">
-                                              <i class="fa fa-edit"></i>
-                                          </button>
-                                      </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- <div class="col-md-4">
+                            <div id="user_email_validation" class="invalid-feedback">
+                                <div *ngIf="email.errors">
+                                    <div *ngIf="email.errors.required">
+                                        El correo es requerido
+                                    </div>
+                                    <div *ngIf="email.errors.email">
+                                        Debes de ingresar un email valido
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="valid-feedback"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="user_name" class="form-label">Nombre</label>
+                            <input type="email" [ngClass]="{ 
+                                    'form-control' : true,
+                                    'is-invalid' :  name.invalid && (name.dirty || name.touched),
+                                    'is-valid' :  name.valid }" formControlName="name" id="user_name"
+                                aria-describedby="user_name_validation" placeholder="Nombre" required>
+
+                            <div id="user_name_validation" class="invalid-feedback">
+                                <div *ngIf="name.errors">
+                                    <div *ngIf="name.errors.required">
+                                        El nombre es requerido
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="valid-feedback"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="user_lastName" class="form-label">Apellido</label>
+                            <input type="email" [ngClass]="{ 
+                                    'form-control' : true,
+                                    'is-invalid' :  lastName.invalid && (lastName.dirty || lastName.touched),
+                                    'is-valid' :  lastName.valid }" formControlName="lastName" id="user_lastName"
+                                aria-describedby="user_lastName_validation" placeholder="Apellido" required>
+
+                            <div id="user_lastName_validation" class="invalid-feedback">
+                                <div *ngIf="lastName.errors">
+                                    <div *ngIf="lastName.errors.required">
+                                        El apellido es requerido
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="valid-feedback"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Rol</label>
+                            <select formControlName="idRol" class="form-control">
+                                <option value="" selected disabled hidden>Seleccione un rol</option>
+                                <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.name }} </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input formControlName="active" id="userActive" type="checkbox" class="form-check-input"
+                                    type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Activo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3 mb-1">
+                            <button style="margin-right: 10px;" type="submit" (click)="saveUser()"
+                                class="btn btn-primary">Guardar</button>
+                            <button type="submit" (click)="cancel()" class="btn btn-secondary">
+                                Cancelar</button>
+                        </div>
+                    </div>
+
+
+
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <div>
+                <div class="header">
+                    <div class="form-group">
+                        <h4 class="title">Usuarios</h4>
+                        <label>Correo</label>
+                        <input name="userFilter" type="text" class="form-control" (keyup)="filterUser($event)"
+                            placeholder="Search">
+                    </div>
+
+                </div>
+                <div class="content">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Email</th>
+                                <th>Activo</th>
+                                <th>Verificado</th>
+                                <th>Fecha de actualización</th>
+                                <th>Fecha de creación</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of users">
+                                    <td>{{ user.user.name }} </td>
+                                    <td>{{ user.user.lastName }}</td>
+                                    <td>{{ user.user.email }}</td>
+                                    <td>
+                                        <div class="checkbox">
+                                            <input *ngIf="user.user.active == 1" disabled id="{{user.user.id}}"
+                                                type="checkbox" checked>
+                                            <input *ngIf="user.user.active == 0" disabled id="{{user.user.id}}"
+                                                type="checkbox">
+                                            <label for="{{user.id}}">
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="checkbox">
+                                            <input *ngIf="user.user.verified == 1" disabled id="{{user.user.id}}"
+                                                type="checkbox" checked>
+                                            <input *ngIf="user.user.verified == 0" disabled id="{{user.user.id}}"
+                                                type="checkbox">
+                                            <label for="{{user.id}}">
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>{{ user.user.updateAt }}</td>
+                                    <td>{{ user.user.createdAt }}</td>
+                                    <td class="td-actions text-right">
+                                        <button (click)="edit(user)" type="button" rel="tooltip" title="Editar usuario"
+                                            class="btn btn-info btn-simple">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-4">
               <div class="card card-user">
                   <div class="header">
                       <h4 class="title">Firma Digital</h4>
@@ -198,27 +176,26 @@
                   
               </div>
           </div> -->
-      </div>
-  </div>
+    </div>
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              ...
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-      </div>
-  </div>
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>

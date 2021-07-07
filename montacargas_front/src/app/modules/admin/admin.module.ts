@@ -6,6 +6,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { UsersComponent } from './users/users.component';
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [LayoutComponent, UsersComponent, ProductsAdminComponent, UsersComponent],
@@ -13,7 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
 
   ]
 })
