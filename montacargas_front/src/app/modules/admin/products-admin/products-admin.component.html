@@ -1,89 +1,150 @@
 <div class="row">
-<div class="col-md-4"> 
-  <div class="card" >
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">1</div>
+      <div class="col-md-4">2</div>
+      <div class="col-md-4">3</div>
     </div>
   </div>
-  <div class="row">
-  <div class="col-md-4">1</div>
-  <div class="col-md-4">2</div>
-  <div class="col-md-4">3</div>
-</div >
-</div>
+  <div class="col-md-8">
+    <form [formGroup]="productsForm" class="row g-3">
+      <div class="col-md-4">
+        <label for="admin_product_name" class="form-label">Titulo</label>
+        <input type="text" [ngClass]="{ 
+            'form-control' : true, 
+            'is-invalid' :  name.invalid && (name.dirty || name.touched), 
+             'is-valid' :  name.valid }" formControlName="name" id="admin_product_name"
+          placeholder="Titulo del repuesto" required>
 
-<div class="col-md-8"> 
-  <form class="row g-3">
-    <div class="col-md-4">
-      <label for="validationServer01" class="form-label">First name</label>
-      <input type="text" class="form-control is-invalid" id="validationServer01" value="Mark" required>
-      <div class="valid-feedback">
-        Looks good!
+        <div id="user_email_validation" class="invalid-feedback">
+          <div *ngIf="name.errors">
+            <div *ngIf="name.errors.required">
+              El titulo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="valid-feedback"></div>
       </div>
-      <div id="validationServerUsernameFeedback" class="invalid-feedback">
-        Please choose a username.
+
+      <div class="col-md-4">
+        <label for="admin_product_name" class="form-label">Precio</label>
+        <input type="number" [ngClass]="{ 
+            'form-control' : true, 
+            'is-invalid' :  price.invalid && (price.dirty || price.touched), 
+             'is-valid' :  price.valid }" formControlName="price" id="admin_product_price" placeholder="Precio"
+          required>
+
+        <div id="product_price_validation" class="invalid-feedback">
+          <div *ngIf="price.errors">
+            <div *ngIf="price.errors.required">
+              El precio es requerido
+            </div>
+          </div>
+        </div>
+        <div class="valid-feedback"></div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <label for="validationServer02" class="form-label">Last name</label>
-      <input type="text" class="form-control is-valid" id="validationServer02" value="Otto" required>
-      <div class="valid-feedback">
-        Looks good!
+      <div class="col-md-4">
+        <label for="product_size" class="form-label">Estado</label>
+        <select formControlName="state" [ngClass]="{ 
+                    'form-control' : true, 
+                    'is-invalid' :  state.invalid && (state.dirty || state.touched), 
+                    'is-valid' :  state.valid }" id="product_state" aria-describedby="validationServer04Feedback"
+          required>
+
+          <option selected disabled value="">Choose...</option>
+          <option>...</option>
+        </select>
+        <div id="product_state_validation" class="invalid-feedback">
+          <div *ngIf="state.errors">
+            <div *ngIf="state.errors.required">
+              El tamaño es requerido
+            </div>
+          </div>
+        </div>
+        <div class="valid-feedback"></div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <label for="validationServerUsername" class="form-label">Username</label>
-      <div class="input-group has-validation">
-        <span class="input-group-text" id="inputGroupPrepend3">@</span>
-        <input type="text" class="form-control is-invalid" id="validationServerUsername" aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" required>
-        <div id="validationServerUsernameFeedback" class="invalid-feedback">
-          Please choose a username.
+      
+      <div class="col-md-3">
+        <label for="product_size" class="form-label">Tamaño</label>
+        <select formControlName="size" [ngClass]="{ 
+                  'form-control' : true, 
+                  'is-invalid' :  size.invalid && (size.dirty || size.touched), 
+                  'is-valid' :  size.valid }" id="product_size" aria-describedby="validationServer04Feedback" required>
+
+          <option selected disabled value="">Choose...</option>
+          <option>...</option>
+        </select>
+        <div id="product_size_validation" class="invalid-feedback">
+          <div *ngIf="size.errors">
+            <div *ngIf="size.errors.required">
+              El tamaño es requerido
+            </div>
+          </div>
+        </div>
+        <div class="valid-feedback"></div>
+      </div>
+      <div class="col-md-3">
+        <label for="validationServer04" class="form-label">Marca</label>
+        <select formControlName="brand" [ngClass]="{ 
+                  'form-control' : true, 
+                  'is-invalid' :  brand.invalid && (brand.dirty || brand.touched), 
+                  'is-valid' :  brand.valid }" id="validationServer04" aria-describedby="validationServer04Feedback"
+          required>
+
+          <option selected disabled value="">Choose...</option>
+          <option>...</option>
+        </select>
+        <div id="product_brandvalidation" class="invalid-feedback">
+          <div *ngIf="brand.errors">
+            <div *ngIf="brand.errors.required">
+              La marca es requerida
+            </div>
+          </div>
+        </div>
+        <div class="valid-feedback"></div>
+      </div>
+      <div class="col-md-3">
+        <label for="admin_product_name" class="form-label">Referencia</label>
+        <input type="text" [ngClass]="{ 
+            'form-control' : true, 
+            'is-invalid' :  reference.invalid && (reference.dirty || reference.touched), 
+             'is-valid' :  reference.valid }" formControlName="reference" id="admin_product_reference"
+          placeholder="Precio" required>
+
+        <div id="product_reference_validation" class="invalid-feedback">
+          <div *ngIf="reference.errors">
+            <div *ngIf="reference.errors.required">
+              La referencia es requerida
+            </div>
+          </div>
+        </div>
+        <div class="valid-feedback"></div>
+      </div>
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3"
+            aria-describedby="invalidCheck3Feedback" required>
+          <label class="form-check-label" for="invalidCheck3">
+            Agree to terms and conditions
+          </label>
+          <div id="invalidCheck3Feedback" class="invalid-feedback">
+            You must agree before submitting.
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <label for="validationServer03" class="form-label">City</label>
-      <input type="text" class="form-control is-invalid" id="validationServer03" aria-describedby="validationServer03Feedback" required>
-      <div id="validationServer03Feedback" class="invalid-feedback">
-        Please provide a valid city.
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit form</button>
       </div>
-    </div>
-    <div class="col-md-3">
-      <label for="validationServer04" class="form-label">State</label>
-      <select class="form-select is-invalid" id="validationServer04" aria-describedby="validationServer04Feedback" required>
-        <option selected disabled value="">Choose...</option>
-        <option>...</option>
-      </select>
-      <div id="validationServer04Feedback" class="invalid-feedback">
-        Please select a valid state.
-      </div>
-    </div>
-    <div class="col-md-3">
-      <label for="validationServer05" class="form-label">Zip</label>
-      <input type="text" class="form-control is-invalid" id="validationServer05" aria-describedby="validationServer05Feedback" required>
-      <div id="validationServer05Feedback" class="invalid-feedback">
-        Please provide a valid zip.
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-check">
-        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
-        <label class="form-check-label" for="invalidCheck3">
-          Agree to terms and conditions
-        </label>
-        <div id="invalidCheck3Feedback" class="invalid-feedback">
-          You must agree before submitting.
-        </div>
-      </div>
-    </div>
-    <div class="col-12">
-      <button class="btn btn-primary" type="submit">Submit form</button>
-    </div>
-  </form>
-</div>
-
+    </form>
+  </div>
 </div>

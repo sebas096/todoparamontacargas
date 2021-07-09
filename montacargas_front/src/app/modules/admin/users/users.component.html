@@ -9,24 +9,29 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="user_email" class="form-label">Correo</label>
-                            <input type="email" [ngClass]="{ 
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                                <input type="email" [ngClass]="{ 
                                         'form-control' : true,
                                         'is-invalid' :  email.invalid && (email.dirty || email.touched),
                                         'is-valid' :  email.valid }" formControlName="email" id="user_email"
-                                aria-describedby="user_email_validation" placeholder="Email" required>
+                                    aria-describedby="user_email_validation" placeholder="Email" required>
 
-                            <div id="user_email_validation" class="invalid-feedback">
-                                <div *ngIf="email.errors">
-                                    <div *ngIf="email.errors.required">
-                                        El correo es requerido
-                                    </div>
-                                    <div *ngIf="email.errors.email">
-                                        Debes de ingresar un email valido
+                                <div id="user_email_validation" class="invalid-feedback">
+                                    <div *ngIf="email.errors">
+                                        <div *ngIf="email.errors.required">
+                                            El correo es requerido
+                                        </div>
+                                        <div *ngIf="email.errors.email">
+                                            Debes de ingresar un email valido
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="valid-feedback"></div>
                             </div>
-                            <div class="valid-feedback"></div>
                         </div>
+
+
                         <div class="col-md-6">
                             <label for="user_name" class="form-label">Nombre</label>
                             <input type="email" [ngClass]="{ 
